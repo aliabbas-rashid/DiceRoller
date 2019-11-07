@@ -65,32 +65,59 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void on_button_click(View view) {
-
         try {
-            EditText editText = (EditText) findViewById(R.id.textIn);
-            String numinput = (editText.getText().toString());
-            int numinputint = Integer.parseInt(numinput);
-
-            if ((numinputint > 6) || (numinputint < 1)) {
-                throw new IllegalArgumentException("Must be between 1 and 6");
-            }
-
-            TextView tv = this.findViewById(R.id.textView);
-            tv.setText("The button was pressed");
-
-            TextView tv2 = this.findViewById(R.id.textView2);
-
-            Random r = new Random();
-            int number = r.nextInt((6-1) + 1)+1;
-
-            tv.setText(Integer.toString(number));
-
-            compare(numinputint, number, tv2);
+            roll_the_dice();
         } catch (Exception e)
         {
             Toast.makeText(MainActivity.this, "Error, enter a number between 1 and 6", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    public void dice_breakers(View view) {
+        try{
+            String[] Questions = new String[6];
+            Questions[0] = "If you could go anywhere in the world, where would you go?";
+            Questions[1] = "If you were stranded on a desert island, what three things would you want to take with you?";
+            Questions[2] = "If you could eat only one food for the rest of your life, what would that be?";
+            Questions[3] = "If you won a million dollars, what is the first thing you would buy?";
+            Questions[4] = "If you could spend the day with one fictional character, who would it be?";
+            Questions[5] = "If you found a magic lantern and a genie gave you three wishes, what would you wish?";
+
+            TextView tv3 = this.findViewById(R.id.textView3);
+            Random r = new Random();
+            int number = r.nextInt(5);
+            String out = Questions[number];
+            tv3.setText(out);
+        }catch (Exception e)
+        {
+            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void roll_the_dice()
+    {
+        EditText editText = (EditText) findViewById(R.id.textIn);
+        String numinput = (editText.getText().toString());
+        int numinputint = Integer.parseInt(numinput);
+
+        if ((numinputint > 6) || (numinputint < 1))
+        {
+            throw new IllegalArgumentException("Must be between 1 and 6");
+        }
+
+        TextView tv = this.findViewById(R.id.textView);
+        tv.setText("The button was pressed");
+
+        TextView tv2 = this.findViewById(R.id.textView2);
+
+        Random r = new Random();
+        int number = r.nextInt((6-1) + 1)+1;
+
+        tv.setText(Integer.toString(number));
+
+        compare(numinputint, number, tv2);
     }
 
     public void compare(int a, int b, TextView c)
@@ -111,6 +138,5 @@ public class MainActivity extends AppCompatActivity {
     {
         count += 1;
         a.setText("Score: " + count);
-
     }
 }
